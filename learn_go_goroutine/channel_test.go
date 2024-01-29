@@ -53,11 +53,11 @@ func TestChannnelAsParameter(t *testing.T) {
 func OnlyIn(channel chan<- string) {
 	time.Sleep(2 * time.Second)
 	channel <- "test only in"
-	//data := <- channel // will error cause channel only in 
+	//data := <- channel // will error cause channel only in
 }
 
 func OnlyOut(channel <-chan string) {
-	data := <- channel
+	data := <-channel
 	fmt.Println(data)
 }
 
@@ -69,5 +69,27 @@ func TestInAndOut(t *testing.T) {
 	go OnlyOut(channel)
 
 	time.Sleep(2 * time.Second)
-	
+
+}
+
+func TestBufferedChannel(t *testing.T) {
+	channel := make(chan string, 3)
+	defer close(channel)
+
+	go func() {
+		channel <- "Akhdan"
+		channel <- "Robbani"
+		channel <- "Oukenze"
+	}()
+
+	go func() {
+		fmt.Println(<-channel)
+		fmt.Println(<-channel)
+		fmt.Println(<-channel)
+	}()
+
+	time.Sleep(2 * time.Second)
+
+	fmt.Println("selesai")
+
 }
