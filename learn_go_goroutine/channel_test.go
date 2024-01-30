@@ -2,6 +2,7 @@ package learngogoroutine
 
 import (
 	"fmt"
+	"strconv"
 	"testing"
 	"time"
 )
@@ -92,4 +93,24 @@ func TestBufferedChannel(t *testing.T) {
 
 	fmt.Println("selesai")
 
+}
+
+
+func TestRangeChannel(t *testing.T){
+	channel := make(chan string)
+	
+	go func(){
+		for i := 0; i < 10; i++{
+			channel <- "perulanga ke " + strconv.Itoa(i)
+			time.Sleep(2 * time.Second)
+		}
+		defer close(channel)
+
+	}()
+
+	for data := range channel{
+		fmt.Println(data)
+	}
+
+	fmt.Println("selesai")
 }
