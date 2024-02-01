@@ -134,7 +134,10 @@ func TestSelectChannel(t *testing.T) {
 		case data := <-channel2:
 			fmt.Println("data dari channel2", data)
 			counter++
+		default:
+			fmt.Println("menunggu data")
 		}
+
 		if counter == 3 {
 			break
 		}
