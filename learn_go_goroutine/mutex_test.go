@@ -56,3 +56,24 @@ func TestRWMutex(t *testing.T) {
 	time.Sleep(5 * time.Second)
 	fmt.Println("Balance :", account.Balance)
 }
+
+func RunAsyncronus(group *sync.WaitGroup) {
+	defer group.Done()
+
+	group.Add(1)
+
+	fmt.Println("hello")
+	time.Sleep(1 * time.Second)
+}
+
+
+func TestWaitGroup(t *testing.T){
+	group := &sync.WaitGroup{}
+
+	for i := 0; i < 100; i++{
+		go RunAsyncronus(group)
+	}
+
+	group.Wait()
+	fmt.Println("done all goroutine")
+}
