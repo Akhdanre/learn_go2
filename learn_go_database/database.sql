@@ -1,18 +1,33 @@
-create table customer (
-    id varchar(100) not null primary key,
-    name varchar(100) not null
+CREATE TABLE customer (
+    id varchar(100) NOT NULL PRIMARY KEY,
+    name varchar(100) NOT NULL
 );
-alter table customer
-add column email varchar(100);
-alter table customer
-add column balance int DEFAULT 0,
-    add column rating double default 0.0,
-    add column created_at timestamp default CURRENT_TIMESTAMP,
-    add column birth_data DATE;
-alter table customer
-add married boolean default false;
-desc customer;
-insert into customer (
+
+ALTER TABLE
+    customer
+ADD
+    COLUMN email varchar(100);
+
+ALTER TABLE
+    customer
+ADD
+    COLUMN balance int DEFAULT 0,
+ADD
+    COLUMN rating double DEFAULT 0.0,
+ADD
+    COLUMN created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+ADD
+    COLUMN birth_data DATE;
+
+ALTER TABLE
+    customer
+ADD
+    married boolean DEFAULT false;
+
+DESC customer;
+
+INSERT INTO
+    customer (
         id,
         name,
         email,
@@ -21,7 +36,8 @@ insert into customer (
         birth_data,
         married
     )
-values (
+VALUES
+    (
         'dani',
         'dani',
         'dani@gmail.com',
@@ -30,7 +46,9 @@ values (
         '2003-08-12',
         false
     );
-insert into customer (
+
+INSERT INTO
+    customer (
         id,
         name,
         email,
@@ -39,7 +57,8 @@ insert into customer (
         birth_data,
         married
     )
-values (
+VALUES
+    (
         'oukenzeumasio',
         'oukenzuemasio',
         'oukenzuemasio@gmail.com',
@@ -57,7 +76,9 @@ values (
         '2004-05-18',
         false
     );
-select id,
+
+SELECT
+    id,
     name,
     email,
     balance,
@@ -65,11 +86,16 @@ select id,
     birth_data,
     married,
     created_at
-from customer;
-delete from customer
-where id = 'robbani';
+FROM
+    customer;
 
-insert into customer (
+DELETE FROM
+    customer
+WHERE
+    id = 'robbani';
+
+INSERT INTO
+    customer (
         id,
         name,
         email,
@@ -78,12 +104,48 @@ insert into customer (
         birth_data,
         married
     )
-values (
+VALUES
+    (
         'lofta',
         'lofta',
         NULL,
         1000000,
         90.0,
         NULL,
-        true
+        TRUE
     );
+
+CREATE TABLE user(
+    username varchar(100) NOT NULL PRIMARY KEY,
+    PASSWORD varchar(100) NOT NULL
+) ENGINE = InnoDB;
+
+DESC user;
+
+SELECT
+    *
+FROM
+    user;
+
+INSERT INTO
+    user(username, PASSWORD)
+VALUES
+    ("akhdan", "akhdanganteng");
+
+CREATE TABLE comment (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR(100) NOT NULL,
+    comment TEXT
+);
+
+DESC comment;
+
+SELECT
+    *
+FROM
+    comment;
+
+SELECT
+    count(*)
+FROM
+    comment;
