@@ -210,3 +210,37 @@ func TestPrepareStmt(t *testing.T) {
 		fmt.Println(lastInsertId)
 	}
 }
+
+func TestDatabaseTrancaction(t *testing.T) {
+	db := GetConnection()
+	defer db.Close()
+
+	ctx := context.Background()
+	query := "INSERT INTO comment (email, comment) values (?, ?)"
+	tx, err := db.Begin()
+
+	if err != nil {
+		panic(err)
+	}
+
+	for i := 0; i < 10; i++ {
+		email := "dani" + strconv.Itoa(i) + "@gmail.com"
+		comment := "data comment ke " + strconv.Itoa(i)
+
+		res, err := tx.ExecContext(ctx, query, email, comment)
+		if err != nil {
+			panic(err)
+		}
+		lastInsertId, _ := res.LastInsertId()
+		fmt.Println(lastInsertId)
+	}
+	//melakukan push ke database
+	// err = tx.Commit() 
+
+	//membatalkan push data 
+	err = tx.Rollback()
+	if err != nil {
+		panic(err)
+	}
+
+}
