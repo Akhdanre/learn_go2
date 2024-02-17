@@ -149,3 +149,6 @@ SELECT
     count(*)
 FROM
     comment;
+
+
+SELECT id, email, comment FROM comment;
