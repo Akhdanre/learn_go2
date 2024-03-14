@@ -71,9 +71,19 @@ paths:
     delete:
       tags:
         - "AUTH"
+      security:
+        - tokenAuth: []
       summary: delete token
       responses:
         "200":
           description: success delete token
         "400":
           description: fail to delete token
+
+components:
+  securitySchemes:
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: X-API-TOKEN
+      description: token for acces
